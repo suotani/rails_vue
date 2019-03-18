@@ -1,1 +1,24 @@
-
+<%= stylesheet_link_tag 'enemy', media: 'all', 'data-turbolinks-track': 'reload' %>
+<div id="app">
+  <table id="table">
+    <tr>
+      <th>NAME</th><th>HP</th><th>MP</th>
+    </tr>
+    <tr v-for="(enemy,index) in enemies" v-on:click="showDetail(index)" v-cloak>
+      <td>{{enemy.name}}</td>
+      <td>{{enemy.hp}}</td>
+      <td>{{enemy.magic_point}}</td>
+    </tr>
+  </table>
+  <h2>Detail</h2>
+  <div v-cloak v-if="show">
+    <p>name: {{enemyInfo.name}}</p>
+    <p>hp: {{enemyInfo.hp}}</p>
+    <p>mp: {{enemyInfo.magic_point}}</p>
+    <p>power: {{enemyInfo.power}}</p>
+    <p>magic: {{enemyInfo.magic_power}}</p>
+    <p>skill: {{enemyInfo.skill_power}}</p>
+    
+  </div>
+</div>
+<%= javascript_pack_tag 'enemy' %>
