@@ -1,24 +1,32 @@
 <%= stylesheet_link_tag 'enemy', media: 'all', 'data-turbolinks-track': 'reload' %>
 <div id="app">
+  <label>HPで絞込み</label>
+  <input type="text" v-model.number="minHp">
+  <p v-cloak>{{enemies.length}}体中{{fillterd.length}}体</p>
   <table id="table">
     <tr>
-      <th>NAME</th><th>HP</th><th>MP</th>
+      <th>NAME</th>
+      <th v-on:click="sortBy('hp')">HP</th>
+      <th v-on:click="sortBy('magic_point')">MP</th>
     </tr>
-    <tr v-for="(enemy,index) in enemies" v-on:click="showDetail(index)" v-cloak>
-      <td>{{enemy.name}}</td>
+    <tr v-for="(enemy,index) in fillterd" v-on:click="showDetail(enemy)" v-cloak>
+      <td><span v-if="enemy.power > 50">*</span>{{enemy.name}}</td>
       <td>{{enemy.hp}}</td>
       <td>{{enemy.magic_point}}</td>
+    </tr>
+    <tr>
+      <td v-if="loading">Loading...</td>
     </tr>
   </table>
   <h2>Detail</h2>
   <div v-cloak v-if="show">
-    <p>name: {{enemyInfo.name}}</p>
-    <p>hp: {{enemyInfo.hp}}</p>
-    <p>mp: {{enemyInfo.magic_point}}</p>
-    <p>power: {{enemyInfo.power}}</p>
-    <p>magic: {{enemyInfo.magic_power}}</p>
-    <p>skill: {{enemyInfo.skill_power}}</p>
-    
+    <p>name: <input type="text" v-model="enemyInfo.name" ></p>
+    <p>hp: <input type="text" v-model="enemyInfo.hp"></p>
+    <p>mp: <input type="text" v-model="enemyInfo.magic_point"></p>
+    <p>power: <input type="text" v-model="enemyInfo.power"></p>
+    <p>magic: <input type="text" v-model="enemyInfo.magic_power"></p>
+    <p>skill: <input type="text" v-model="enemyInfo.skill_power"></p>
+    <button type="button" v-on:click="updateEnemy(enemyInfo.id)">更新</button>
   </div>
 </div>
 <%= javascript_pack_tag 'enemy' %>
