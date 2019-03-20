@@ -19,13 +19,14 @@
     </tr>
   </table>
   <h2>Detail</h2>
+  <p v-cloak v-if="updated">更新しました</p>
   <div v-cloak v-if="show">
     <p>name: <input type="text" v-model="enemyInfo.name" ></p>
-    <p>hp: <input type="text" v-model="enemyInfo.hp"></p>
-    <p>mp: <input type="text" v-model="enemyInfo.magic_point"></p>
-    <p>power: <input type="text" v-model="enemyInfo.power"></p>
-    <p>magic: <input type="text" v-model="enemyInfo.magic_power"></p>
-    <p>skill: <input type="text" v-model="enemyInfo.skill_power"></p>
+    <p>hp: <input type="text" v-model.number="enemyInfo.hp"></p>
+    <p>mp: <input type="text" v-model.number="enemyInfo.magic_point"></p>
+    <p>power: <input type="text" v-model.number="enemyInfo.power"></p>
+    <p>magic: <input type="text" v-model.number="enemyInfo.magic_power"></p>
+    <p>skill: <input type="text" v-model.number="enemyInfo.skill_power"></p>
     <button type="button" v-on:click="updateEnemy(enemyInfo.id)">更新</button>
   </div>
 </div>

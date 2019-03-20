@@ -7,7 +7,8 @@ window.app = new Vue({
     enemyInfo: {},
     show: false,
     loading: true,
-    minHp: 0
+    minHp: 0,
+    updated: false
   },
   created: function(){
       axios.get('/enemies/list')
@@ -17,7 +18,7 @@ window.app = new Vue({
       });
   },
   computed: {
-      fillterd: function(){
+      fillterd(){
           return this.enemies.filter(function(el){
               return el.hp >= this.minHp
           }, this)
@@ -27,6 +28,7 @@ window.app = new Vue({
       showDetail: function(enemy){
           this.enemyInfo = Object.assign({}, enemy);
           this.show = true
+          this.updated = false
       },
       
       sortBy: function(key){
@@ -36,7 +38,17 @@ window.app = new Vue({
       
       updateEnemy: function(id){
           var index = this.enemies.findIndex(function(el){return el.id == id})
-          Vue.set(this.enemies, index, Object.assign({}, this.enemyInfo))
+          axios.patch('enemies/' + id,{
+              enemy: Object.assign({}, this.enemyInfo)
+          }).then(res => {
+            console.log(res.data)
+            if(res.data.result){
+                this.updated = true 
+            }else{
+                
+            }
+          });
+          this.$set(this.enemies, index, Object.assign({}, this.enemyInfo))
       }
   }
   
