@@ -7,3 +7,14 @@
     margin: 0;
     margin-bottom: 3px;
 }
+
+.v-enter-active, .v-leave-active{
+    transition: opacity 1s;
+}
+.v-enter, .v-leave-to{
+    opacity: 0;
+}
+
+h2 span{
+    color: red;
+}

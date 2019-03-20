@@ -3,8 +3,14 @@ import axios from 'axios'
 import myError from './error'
 
 var enemyItem = {
-    template: '<tr><td><span v-if="enemy.power > 50">*</span>{{enemy.name}}</td><td>{{enemy.hp}}</td><td>{{enemy.magic_point}}</td></tr>',
-    props: ['enemy']
+    template: [
+        '<tr>',
+          '<td><span v-if="enemy.power > 50">*</span>{{enemy.name}}</td>',
+          '<td>{{enemy.hp}}</td>',
+          '<td>{{enemy.magic_point}}</td>',
+        '</tr>'
+    ].join(''),
+    props: ['enemy'],
 }
 
 window.app = new Vue({
@@ -16,10 +22,10 @@ window.app = new Vue({
     loading: true,
     minHp: 0,
     updated: false,
-    errors: []
+    errors: [],
   },
   components: {
-      'enemy-item': enemyItem
+      'enemy-item': enemyItem,
   },
   created: function(){
       axios.get('/enemies/list')
@@ -37,6 +43,7 @@ window.app = new Vue({
   },
   methods: {
       showDetail: function(enemy){
+          console.log("parent")
           this.enemyInfo = Object.assign({}, enemy);
           this.show = true
           this.updated = false
