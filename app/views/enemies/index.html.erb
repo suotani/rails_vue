@@ -4,34 +4,29 @@
   <input type="text" v-model.number="minHp">
   <p v-cloak>{{enemies.length}}体中{{fillterd.length}}体</p>
   <table id="table">
-    <tr>
-      <th>NAME</th>
-      <th v-on:click="sortBy('hp')">HP</th>
-      <th v-on:click="sortBy('magic_point')">MP</th>
-    </tr>
-    <tr v-for="(enemy,index) in fillterd" v-on:click="showDetail(enemy)" v-cloak>
-      <td><span v-if="enemy.power > 50">*</span>{{enemy.name}}</td>
-      <td>{{enemy.hp}}</td>
-      <td>{{enemy.magic_point}}</td>
-    </tr>
-    <tr>
-      <td v-if="loading">Loading...</td>
-    </tr>
+    <tbody>
+      <tr>
+        <th>NAME</th>
+        <th v-on:click="sortBy('hp')">HP</th>
+        <th v-on:click="sortBy('magic_point')">MP</th>
+      </tr>
+      <tr is="enemy-item" v-for="enemy in fillterd" v-bind:enemy="enemy" v-on:click="showDetail(enemy)" v-cloak></tr>
+    </tbody>
   </table>
+  <p v-if="loading" v-cloak>Loading...</p>
   <h2>Detail</h2>
   <div v-cloak>
-  <p v-if="updated">更新しました</p>
-  <div v-if="errors.length != 0">
-    <p v-for="error in errors" class="error">{{error}}</p>
-  </div>
-  <div v-if="show">
-    <p>name: <input type="text" v-model="enemyInfo.name" ></p>
-    <p>hp: <input type="text" v-model.number="enemyInfo.hp"></p>
-    <p>mp: <input type="text" v-model.number="enemyInfo.magic_point"></p>
-    <p>power: <input type="text" v-model.number="enemyInfo.power"></p>
-    <p>magic: <input type="text" v-model.number="enemyInfo.magic_power"></p>
-    <p>skill: <input type="text" v-model.number="enemyInfo.skill_power"></p>
-    <button type="button" v-on:click="updateEnemy(enemyInfo.id)">更新</button>
+    <p v-if="updated">更新しました</p>
+    <my-error v-bind:errors="errors"></my-error>
+    <div v-if="show">
+      <p>name: <input type="text" v-model="enemyInfo.name" ></p>
+      <p>hp: <input type="text" v-model.number="enemyInfo.hp"></p>
+      <p>mp: <input type="text" v-model.number="enemyInfo.magic_point"></p>
+      <p>power: <input type="text" v-model.number="enemyInfo.power"></p>
+      <p>magic: <input type="text" v-model.number="enemyInfo.magic_power"></p>
+      <p>skill: <input type="text" v-model.number="enemyInfo.skill_power"></p>
+      <button type="button" v-on:click="updateEnemy(enemyInfo.id)">更新</button>
+    </div>
   </div>
 </div>
 <%= javascript_pack_tag 'enemy' %>

@@ -1,5 +1,12 @@
 import Vue from 'vue'
-import axios from 'axios';
+import axios from 'axios'
+import myError from './error'
+
+var enemyItem = {
+    template: '<tr><td><span v-if="enemy.power > 50">*</span>{{enemy.name}}</td><td>{{enemy.hp}}</td><td>{{enemy.magic_point}}</td></tr>',
+    props: ['enemy']
+}
+
 window.app = new Vue({
   el: "#app",
   data: {
@@ -10,6 +17,9 @@ window.app = new Vue({
     minHp: 0,
     updated: false,
     errors: []
+  },
+  components: {
+      'enemy-item': enemyItem
   },
   created: function(){
       axios.get('/enemies/list')
