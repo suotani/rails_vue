@@ -8,7 +8,8 @@ window.app = new Vue({
     show: false,
     loading: true,
     minHp: 0,
-    updated: false
+    updated: false,
+    errors: []
   },
   created: function(){
       axios.get('/enemies/list')
@@ -29,6 +30,7 @@ window.app = new Vue({
           this.enemyInfo = Object.assign({}, enemy);
           this.show = true
           this.updated = false
+          this.errors = []
       },
       
       sortBy: function(key){
@@ -43,12 +45,12 @@ window.app = new Vue({
           }).then(res => {
             console.log(res.data)
             if(res.data.result){
-                this.updated = true 
+                this.updated = true
+                this.$set(this.enemies, index, Object.assign({}, this.enemyInfo))
             }else{
-                
+                this.errors = res.data.errors
             }
           });
-          this.$set(this.enemies, index, Object.assign({}, this.enemyInfo))
       }
   }
   
