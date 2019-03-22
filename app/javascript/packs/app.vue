@@ -1,22 +1,29 @@
 <template>
   <div id="app">
-    <p>{{ message }}</p>
+    <nav>
+      <router-link to="/">まもの管理</router-link>
+      <router-link to="/maou">魔王管理</router-link>
+    </nav>
+    <router-view />
   </div>
 </template>
 
 <script>
+
 export default {
-  data: function () {
-    return {
-      message: "Hello Vue!"
-    }
-  }
-}
+  name: "App"
+};
 </script>
 
 <style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
+  nav{
+    padding: 7px;
+    background-color: black;
+    margin-bottom: 10px;
+  }
+  nav a{
+    color: #4f97e2;
+    text-decoration: none;
+    margin-right: 10px;
+  }
 </style>
