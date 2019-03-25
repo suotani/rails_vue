@@ -71,7 +71,6 @@ export default{
   },
   methods: {
       showDetail: function(enemy){
-          console.log("parent")
           this.enemyInfo = Object.assign({}, enemy);
           this.show = true
           this.updated = false
@@ -88,7 +87,6 @@ export default{
           axios.patch('enemies/' + id,{
               enemy: Object.assign({}, this.enemyInfo)
           }).then(res => {
-            console.log(res.data)
             if(res.data.result){
                 this.updated = true
                 this.$set(this.enemies, index, Object.assign({}, this.enemyInfo))
